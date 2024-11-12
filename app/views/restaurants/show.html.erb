@@ -1,0 +1,17 @@
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+  <p><%= @restaurant.address %></p>
+  <p><%= "*" * @restaurant.rating %></p>
+  <p>
+    <%= link_to "Restaurants", restaurants_path, class: 'btn btn-light'  %>
+  </p>
+  <p>
+    <%= link_to 'Edit', edit_restaurant_path(@restaurant), class: 'btn btn-light'  %>
+  </p>
+  <p>
+    <%= link_to restaurant_path(@restaurant), class: 'btn btn-light', data: { turbo_method: :delete, turbo_confirm: "Delete #{@restaurant.name}?" } do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
+    <!-- <a href="" data-turbo-method="delete" class="btn"></a> -->
+  </p>
+</div>
