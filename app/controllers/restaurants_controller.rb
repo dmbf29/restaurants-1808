@@ -1,4 +1,16 @@
 class RestaurantsController < ApplicationController
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :chef]
+
+  # '/restaurants/top'
+  def top
+    @restaurants = Restaurant.where(rating: 5)
+  end
+
+  # '/restaurants/52/chef'
+  def chef
+    @chef = @restaurant.chef_name
+  end
+
   # '/restaurants'
   def index
     @restaurants = Restaurant.all
@@ -6,7 +18,6 @@ class RestaurantsController < ApplicationController
 
   # '/restaurants/1'
   def show
-    @restaurant = Restaurant.find(params[:id])
   end
 
   # '/restaurants/new'
@@ -35,13 +46,11 @@ class RestaurantsController < ApplicationController
   # '/restaurants/1/edit'
   def edit
     # just for the form
-    @restaurant = Restaurant.find(params[:id])
   end
 
   # we cant get here by a link. we have to submit the form
   # no view for this, this redirects to another page
   def update
-    @restaurant = Restaurant.find(params[:id])
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant)
     else
@@ -51,13 +60,16 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
     redirect_to restaurants_path, status: :see_other # redirect
   end
 
   private
 
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
+  end
+  # strong params
   def restaurant_params
     # whitelists the attributes a user can give in the form (for security)
     params.require(:restaurant).permit(:name, :address, :rating)

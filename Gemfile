@@ -62,9 +62,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
 # Custom Added:
 gem "bootstrap", "~> 5.2"
 gem "faker"
 gem "font-awesome-sass", "~> 6.1"
 gem 'ostruct'
 gem "sassc-rails"
+gem "simple_form"
