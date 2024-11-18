@@ -18,7 +18,8 @@ CHEFS.shuffle.each do |name|
     rating: rand(3..5),
     address: "#{rand(1..3)}-#{rand(1..11)} Meguro, Meguro ku, Tokyo, Japan",
     category: get_category(restaurant_name),
-    chef_name: name
+    chef_name: name,
+    opening_date: Date.today - rand(10..50)
   )
 end
 puts "... created #{Restaurant.count} restaurants"
