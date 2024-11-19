@@ -10,7 +10,10 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.restaurant = @restaurant
     if @review.save
-      redirect_to restaurant_path(@restaurant)
+      respond_to do |format|
+        format.html { redirect_to restaurant_path(@restaurant) }
+        format.text { render partial: 'reviews/review', locals: { review: @review}, formats: [:html] }
+      end
     else
       render 'new', status: :unprocessable_entity
     end

@@ -14,10 +14,16 @@ class RestaurantsController < ApplicationController
   # '/restaurants'
   def index
     @restaurants = Restaurant.all
+    respond_to do |format|
+      format.html { render 'index'}
+      format.json { render json: @restaurants }
+      format.text { render json: @restaurants }
+    end
   end
 
   # '/restaurants/1'
   def show
+    @review = Review.new
   end
 
   # '/restaurants/new'
