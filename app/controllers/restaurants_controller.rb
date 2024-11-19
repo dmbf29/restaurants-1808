@@ -14,10 +14,11 @@ class RestaurantsController < ApplicationController
   # '/restaurants'
   def index
     @restaurants = Restaurant.all
-    respond_to do |format|
-      format.html { render 'index'}
-      format.json { render json: @restaurants }
-      format.text { render json: @restaurants }
+    @markers = @restaurants.geocoded.map do |restaurant|
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude
+      }
     end
   end
 
