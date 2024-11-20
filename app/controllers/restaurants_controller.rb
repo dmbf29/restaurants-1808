@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show, :top, :chef]
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :chef]
 
   # '/restaurants/top'
@@ -52,6 +53,7 @@ class RestaurantsController < ApplicationController
     # if it saves... go to the show page
     # if it doesnt save... show the form again
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user = current_user
     if @restaurant.save
       # make a seperate request to go to the show page
       redirect_to restaurant_path(@restaurant)

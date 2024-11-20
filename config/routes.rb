@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :users
   # Prefix ONLY refers to the path (doesnt include http verb)
   # VERB '/path', to: 'controller#action', as: :prefix
   # resources is ONLY for CRUD routes
+  root to: 'restaurants#index'
   resources :restaurants do
     resources :reviews, only: [:new, :create]
+    collection do
+      get :top
+    end
+    member do
+      get :chef
+    end
   end
   resources :reviews, only: [:destroy]
 end

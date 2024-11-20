@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
   # associations
+  belongs_to :user
   has_many :reviews, dependent: :destroy # this will destroy the reviews of this restaurant
   # validations
   validates :name, presence: true
